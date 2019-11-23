@@ -1,0 +1,75 @@
+\chapter{\MakeUppercase{Анализ системы}}
+\section{Кинематика ходьбы}
+
+Верхняя его часть \textit{антропоморфна}, однако ног у него четыре, что выделяет его на фоне роботов антропоморфной конструкции в вопросах мобильности и устойчивости. \cite{Hwangbo2019} Стоит отметить, что данный аппарат не полностью автономен, и для полноценной работы ему потребуется оператор, однако по словам разработчиков в случае, например, обрыва питания робот может продолжить выполнение задач самостоятельно. 
+
+\section{Динамика ходьбы}
+
+Каждая нога состоит из манипулятора с четырьмя степенями свободы (поворот в плоскости платформы, и три поворота в вертикальной плоскости) и колеса, имеющего две степени свободы относительно конечного звена манипулятора. \cite{Seok2012}
+
+\begin{figure}[ht]
+    \centering
+        \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+            $$\begin{array}{l}
+            F \to x \;|\; y \;|\; (S) \\
+            T \to F \;|\; T \ast F \\
+            S \to T \;|\; S + T \\    
+            \end{array}$$
+            \caption{}
+        \end{subfigure} %    
+        \begin{subfigure}[b]{0.6\textwidth}
+        \centering
+            %\includegraphics[scale=0.7]{parseTree.png}
+            $$\begin{array}{l}
+            F \to x \;|\; y \;|\; (S) \\
+            T \to F \;|\; T \ast F \\
+            S \to T \;|\; S + T \\    
+            \end{array}$$
+            \caption{}
+        \end{subfigure}
+        
+        \caption{(a) Продукции грамматики $G$ для порождения арифметических выражений; 
+                    (б) Дерево разбора строки $x+y\ast y$ в грамматике $G$.}
+        
+        \label{fig_parsetree}
+    \end{figure}
+
+    \begin{table}[ht]
+        \caption{Расчет весомости параметров ПП}
+        \label{tab_weight}
+        \centering
+            \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+            \hline \multirow{2}{*}{Параметр $x_i$} & \multicolumn{4}{c|}{Параметр $x_j$} & 
+                \multicolumn{2}{c|}{Первый шаг} & \multicolumn{2}{c|}{Второй шаг} \\
+            \cline{2-9} & $X_1$ & $X_2$ & $X_3$ & $X_4$ & $w_i$ & 
+                ${K_\text{в}}_i$ & $w_i$ & ${K_\text{в}}_i$ \\
+            \hline $X_1$ & 1 & 1 & 1.5 & 1.5 & 5 & 0.31 & 19 & 0.32 \\
+            \hline $X_2$ & 1 & 1 & 1.5 & 1.5 & 5 & 0.31 & 19 & 0.32 \\
+            \hline $X_3$ & 0.5 & 0.5 & 1 & 0.5 & 2.5 & 0.16 & 9.25 & 0.16 \\
+            \hline $X_4$ & 0.5 & 0.5 & 1.5 & 1 & 3.5 & 0.22 & 12.25 & 0.20 \\
+            \hline \multicolumn{5}{|c|}{Итого:} & 16 & 1 & 59.5 & 1 \\
+            \hline
+            \end{tabular}
+    \end{table}
+
+    \begin{equation}
+        \begin{bmatrix}
+            a & b \\ c & d
+        \end{bmatrix}
+    \end{equation}
+    
+    
+
+%     \begin{python}
+% import clapi as api
+% api.start() # hehehe
+%         \end{python}
+
+%         \begin{cpp}
+% int main() {
+%     printf("hello world")
+%     return 0;
+% }
+%         \end{cpp}
+        

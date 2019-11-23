@@ -1,0 +1,15 @@
+# LATEX build files
+diploma/*.aux
+diploma/*.fdb_latexmk
+diploma/*.fls
+diploma/*.log
+diploma/*.synctex.gz
+diploma/*.toc
+# BibTEX build files
+*.bib.*
+*.bbl
+*.blg
+# altium cache files
+electronics/KM_BD01/History
+electronics/KM_BD01/__Previews
+/electronics/KM_BD01/Project\ Logs\ for\ KM_BD01

@@ -1,0 +1,326 @@
+\documentclass[a4paper,14pt,russian]{extreport}
+
+\usepackage{extsizes}       % для установки размера шрифта
+%\usepackage{mathtext}       % русские буквы в формулах
+\usepackage{cmap}           % поиск в pdf
+\usepackage[T2A]{fontenc}   % кодировка
+\usepackage[utf8]{inputenc} % кодировка исходного текста
+\usepackage[russian]{babel} % локализация и переносы
+\usepackage{pscyr}
+
+% далее две строки отвечающие за т.н. "полуторный интервал"
+% плюс исправляем кабанические отступы вокруг формул
+\usepackage[nodisplayskipstretch]{setspace}
+\onehalfspacing
+% двойной оттступ - эквивалент интервала который в ворде называют "1.5 отступ"
+% но я буду юзать ИСТИННЫЙ полуторный интервал, который на 10% меньше
+%\doublespacing 
+\parskip 1.5ex % paragraph spacing
+
+\usepackage{graphicx} % для вставки картинок
+\usepackage{amssymb,amsfonts,amsmath,amsthm, mathtools} % математические дополнения от АМС
+\usepackage{icomma} % умная запятая)) $3,49$ - число, $3, 49$ - перечисление
+\usepackage{indentfirst} % отделять первую строку раздела абзацным отступом тоже
+\usepackage[usenames,dvipsnames]{color} % названия цветов
+\usepackage{makecell}
+\usepackage{multirow} % улучшенное форматирование таблиц
+\usepackage{ulem} % подчеркивания
+
+%\mathtoolsset{showonlyrefs=true} % показывать номера только у тех формул, на которые есть ссылки
+%\usepackage{leqno} % нумерация формул слева
+\usepackage{euscript} % математический шрифт Евклид (красивый) для формул
+\usepackage{mathrsfs} % красивые вычурные буквы с завитушками для формул
+% Перенос знаков в формулах по Львовскому (дублировать знак при переносе)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+            {\hbox{\mathsurround=0pt #1}}{}}
+\usepackage{physics} % для удобной записи производных
+
+%\renewcommand{\theequation}{\arabic{section}.\arabic{equation}} % нумерация сплошная
+%\renewcommand{\theequation}{\arabic{equation}} % сквозная нумерация
+
+% СВОИ МАТЕМАТИЧЕСКИЕ ФУНКЦИИ (КОМАНДЫ)
+\DeclareMathOperator{\heviside}{\mathop{H}} % ф-я Хевисайда, обозн. буквой H
+
+
+% ====================================================================
+%                   Настраиваем стандартные поля
+%                   Верхнее и нижнее - 2см
+%                   Левое - 3см
+%                   Правое - 1.5см
+% ====================================================================
+\usepackage{geometry}
+\geometry{left=3cm}
+\geometry{right=1.5cm}
+\geometry{top=2cm}
+\geometry{bottom=2cm}
+
+
+
+% ====================================================================
+%                     Включаем Times New Roman
+% ====================================================================
+\renewcommand{\rmdefault}{ftm} 
+\frenchspacing
+
+
+
+% ====================================================================
+%           Нумерация страниц справа снизу (контитулы)
+% ====================================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[R]{\thepage}
+\fancyheadoffset{0mm}
+\fancyfootoffset{0mm}
+\setlength{\footskip}{17pt}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{ 
+    \fancyhf{}
+    \rfoot{\thepage}}
+\setcounter{page}{5} % начать нумерацию страниц с №5
+
+
+
+% ====================================================================
+%           Подписи под изображениями и над таблицами
+% ====================================================================
+\usepackage[tableposition=top]{caption}
+\usepackage{subcaption}
+\DeclareCaptionLabelFormat{gostfigure}{Рисунок #2}
+\DeclareCaptionLabelFormat{gosttable}{Таблица #2}
+\DeclareCaptionLabelSeparator{gost}{~---~}
+\captionsetup{labelsep=gost}
+\captionsetup[figure]{labelformat=gostfigure}
+\captionsetup[table]{labelformat=gosttable}
+\renewcommand{\thesubfigure}{\asbuk{subfigure}}
+
+
+
+% ====================================================================
+%                   Перечисления, нумерованные списки
+% Согласно ЕСКД они будут выглядеть как:
+% а) first
+% б) second
+%     1) first sub-second
+%     2) second sub-second
+% в) third 
+%
+% ====================================================================
+\usepackage{enumitem}
+\makeatletter
+    \AddEnumerateCounter{\asbuk}{\@asbuk}{м)}
+\makeatother
+\setlist{nolistsep}
+\renewcommand{\labelitemi}{-}
+\renewcommand{\labelenumi}{\asbuk{enumi})}
+\renewcommand{\labelenumii}{\arabic{enumii})}
+
+
+
+% ====================================================================
+%                       Настройка заголовков
+% ====================================================================
+\usepackage{titlesec}
+ 
+\titleformat{\chapter}[display]
+    {\filcenter}
+    {\MakeUppercase{\chaptertitlename} \thechapter}
+    {8pt}
+    {\bfseries}{}
+ 
+\titleformat{\section}
+    {\normalsize\bfseries}
+    {\thesection}
+    {1em}{}
+ 
+\titleformat{\subsection}
+    {\normalsize\bfseries}
+    {\thesubsection}
+    {1em}{}
+% Настройка вертикальных и горизонтальных отступов заголовков
+\titlespacing*{\chapter}{0pt}{-30pt}{8pt}
+\titlespacing*{\section}{\parindent}{*4}{*1.3} % мне отступы снизу показались слишком большими
+\titlespacing*{\subsection}{\parindent}{*4}{*4}
+
+
+
+% ====================================================================
+%                       Настройка оглавления
+% ====================================================================
+\usepackage{tocloft}
+\renewcommand{\cfttoctitlefont}{\hspace{0.38\textwidth} \bfseries\MakeUppercase}
+\renewcommand{\cftbeforetoctitleskip}{-1em}
+\renewcommand{\cftaftertoctitle}{\mbox{}\hfill \\ \mbox{}\vspace{-2.5em}}
+\renewcommand{\cftchapfont}{\normalsize\bfseries \MakeUppercase{\chaptername} }
+\renewcommand{\cftsecfont}{\hspace{31pt}}
+\renewcommand{\cftsubsecfont}{\hspace{11pt}}
+\renewcommand{\cftbeforechapskip}{1em}
+\renewcommand{\cftparskip}{1mm}
+\renewcommand{\cftdotsep}{1}
+\setcounter{tocdepth}{2} % задать глубину оглавления — до subsection включительно
+
+
+
+% ====================================================================
+%                   Настройка специальных разделов
+% Встроим в оглавление специальные главы: аннотацию, введение и т.д.
+% Такие главы будут создаваться командой "\likechapter{название главы}" 
+% ====================================================================
+\newcommand{\likechapterheading}[1]{ 
+    \begin{center}
+    \textbf{\MakeUppercase{#1}}
+    \end{center}}
+
+\makeatletter
+    \renewcommand{\@dotsep}{2}
+    \newcommand{\l@likechapter}[2]{{\bfseries\@dottedtocline{0}{0pt}{0pt}{#1}{#2}}}
+\makeatother
+\newcommand{\likechapter}[1]{    
+    \likechapterheading{#1}    
+    \addcontentsline{toc}{likechapter}{\MakeUppercase{#1}}}
+
+
+
+% ====================================================================
+%                       Исходный код в приложении
+% ====================================================================
+\usepackage{listings}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5} % цвет комментариев
+\definecolor{mygreen}{rgb}{0.1,0.6,0.1} % цвет номеров строк
+\definecolor{mypurple}{rgb}{0.7,0.1,0.4} % цвет номеров строк
+% настройка общего внешнего вида для всех языков
+\lstset{breaklines=true,
+        basicstyle=\footnotesize\ttfamily,
+        commentstyle=\color{mygreen},
+        keywordstyle=\bfseries\color{blue},
+        stringstyle=\bfseries\color{mypurple},
+        numbers=left, 
+        numberstyle=\color{mygray},
+        numbersep=20pt}
+% Окружения для разных языков программирования
+\lstnewenvironment{python}[1][]{\lstset{language=Python,#1}}{}
+\lstnewenvironment{cpp}[1][]{\lstset{language=C,#1}}{}
+\lstnewenvironment{code}[1][]{\lstset{#1}}{} % для любого кода
+
+
+
+% ====================================================================
+%                 Организация рабочего пространства
+% ====================================================================
+\usepackage{import}
+\newcommand{\includechapter}[1]{\subimport{chapter_#1/}{chapter_#1}\newpage}
+\newcommand{\includeappend}[1]{\subimport{append_#1/}{append_#1}\newpage}
+\usepackage{tabularx}
+
+
+% ====================================================================
+%                         Список литературы
+% ====================================================================
+\newcommand{\includebiblio}[1]{
+    \begingroup
+    \renewcommand{\chapter}[2]{
+        \clearpage
+        \stepcounter{chapter}
+        \centering\paragraph{\MakeUppercase{Библиографический список}}
+        \addcontentsline{toc}{likechapter}{\MakeUppercase{Библиографический список}}
+    }
+    \let\bibfont\protect\normalsize
+    \bibliographystyle{ugost2008} % Стиль библиографических ссылок БибТеХа
+    \bibliography{#1}
+    \endgroup
+}
+
+
+
+% ====================================================================
+%                           Приложения
+% ====================================================================
+\usepackage[title,titletoc]{appendix}
+\titleformat{\paragraph}[display]
+    {\filcenter}
+    {\MakeUppercase{\chaptertitlename} \thechapter}
+    {8pt}
+    {\bfseries}{}
+\titlespacing*{\paragraph}{0pt}{-30pt}{8pt}
+\newcommand{\append}[1]{
+    \clearpage
+    \stepcounter{chapter}
+    \begin{center}
+        \paragraph{\MakeUppercase{\chaptertitlename~\Asbuk{chapter}}}
+        \vspace{-0.5cm}
+        \paragraph{\MakeUppercase{ #1}}
+    \end{center}
+    \addcontentsline{toc}{likechapter}{\MakeUppercase{\chaptertitlename~\Asbuk{chapter}: #1}}
+}
+
+
+
+% ====================================================================
+%             Счетчики страниц, таблиц, изображений
+% ====================================================================
+\usepackage{lastpage} % использовать можно \pageref*{LastPage}
+% далее костыль со stackoverflow
+\usepackage{totcount}
+\newcounter{totfigures}
+\newcounter{tottables}
+\makeatletter
+    \AtEndDocument{
+      \addtocounter{totfigures}{\value{figure}}
+      \addtocounter{tottables}{\value{table}}
+      \immediate\write\@mainaux{
+        \string\gdef\string\totfig{\number\value{totfigures}}
+        \string\gdef\string\tottab{\number\value{tottables}}   
+      }
+    }
+\makeatother
+% перед каждым вызовом chapter обновляем счетчики
+\usepackage{etoolbox}
+\pretocmd{\chapter}{\addtocounter{totfigures}{\value{figure}}}{}{}
+\pretocmd{\chapter}{\addtocounter{tottables}{\value{table}}}{}{}
+
+
+
+% ====================================================================
+%                           МЕТА-ДАННЫЕ
+% ====================================================================
+\usepackage{authblk}
+\author{Коломейцев А.А.}
+\title{Разработка конечности для шагающего робота}
+\affil{НИУ "МЭИ"}
+
+
+% ====================================================================
+%                           НАЧАЛО КОНТЕНТА
+% ====================================================================
+\begin{document}
+
+\maketitle
+\newpage
+
+\includechapter{annotation} % аннотация
+
+% Оглавление. 
+% Для правильного отображения оглавления документ должен быть
+% скомпилирован дважды (иногда трижды).
+\tableofcontents\newpage
+
+\includechapter{intro} % введение
+
+\includechapter{legged_robots} % глава "Шагающие роботы"
+
+\includechapter{system_analisys} % глава "Анализ системы"
+
+\includebiblio{sources} % в файле source.bib лежит БД со списком источников
+
+%Дипломная работа \pageref{LastPage}~с \totfig~рис. \tottab~таблиц.
+
+\appendix
+
+\includeappend{stuff}
+
+\append{Код класса}
+\lstinputlisting[language=Python,firstline=14,lastline=34,firstnumber=14]{asynclapi.py}
+
+\end{document}
