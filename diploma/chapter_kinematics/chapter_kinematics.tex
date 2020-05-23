@@ -15,7 +15,7 @@
     \centering
     \includegraphics[scale=0.5]{chapter_kinematics/figure1.png}
     \caption{Трехмерная кинематическая схема ноги робота}
-    \label{}
+    \label{fig:kin_scheme}
 \end{figure}
 
 В составе конечности присутствует непрямой кинематический четырехзвенник (три из четырех сторон имеют разные длины). Это усложнило кинематическую задачу, сделало ее менее тривиальной. Как оказалось далее, наличие четырехзвенной передачи сделало невозможным нахождение аналитического решения обратной задачи кинематики. 
@@ -52,12 +52,12 @@
 
 Для построения рабочей области использованы уравнения прямой кинематики, которые будут выведены в пункте \ref{sec:direct_kinematics}.
 
-\section{Общее решение четырёхзвенника}
+\section{Общее решение четырёхзвенника} \label{sec:pre_direct_kin}
 
 При построении аналитического решения четырехзвенной передачи было важно подобрать функции так, чтобы для рабочих диапазонов углов $ \varphi_1, \varphi_2, \varphi_3 $ не возникало переходов через ноль, или через бесконечно большие числа. Важно избежать использования кусочных функций и условных операторов для упрощения программирования.
 Малые диапазоны углов в рассматриваемой конечности упрощают эту задачу.
 
-На рисунке \ref{fig:scheme_four} приведена схема четырехзвенника. Найдем зависимость $ \varphi_4 $ от $ \varphi_3 $. \fixme (надо на схеме выше показать phi4)
+На рисунке \ref{fig:scheme_four} приведена схема четырехзвенника. Найдем зависимость $ \varphi_4 $ от $ \varphi_3 $. Здесь $ l= a_4 + a_6=a_7 $ введен для упрощения расчётных формул, т.к. две стороны четырехзвенника имеют одну длину.
 \begin{figure}[h]
     \centering
     \includegraphics[scale=1]{chapter_kinematics/figure4.png}
@@ -70,17 +70,71 @@
     d = \sqrt{a_5^2 + l^2 - 2a_5 l \cos(\varphi_3)} \label{eq:kin_1}
 \end{align}
 
-С помощью уравнения \ref{eq:kin_1} выразим углы:
+\noindent С помощью уравнения \ref{eq:kin_1} выразим углы:
 \begin{align}
-    \alpha &= \text{arccos}\left(\frac{d^2-a_9^2-l^2}{2 a_9 l}\right) \\
-    \gamma &= \text{arcsin}\left(\frac{a_5}{d}\cos \varphi_3\right) \\
-    \delta &= \text{arccos}\left(\frac{d^2+a_9^2-l^2}{2 a_9 l}\right)
+    \gamma &= \text{arcsin}\left(\frac{a_5}{d}\cos \varphi_3\right) \label{eq:gamma} \\
+    \delta &= \text{arccos}\left(\frac{d^2+a_9^2-l^2}{2 a_9 l}\right) \label{eq:delta}
 \end{align}
 
+\noindent И искомый угол $ \varphi_4 $ будет находиться следующим образом:
+\begin{align}
+    \varphi_4 = \pi - \gamma - \delta \label{eq:phi4_simple}
+\end{align}
 
+\noindent Подставим результаты \ref{eq:kin_1}, \ref{eq:gamma}, \ref{eq:delta} в уравнение \ref{eq:phi4_simple} таким образом получим  зависимость $ \varphi_4 $ от $ \varphi_3 $:
+\begin{multline}
+    \varphi_4 = \pi - \text{arcsin}\left(\frac{a_5}{\sqrt{a_5^2 + l^2 - 2a_5 l \cos(\varphi_3)}}\cos \varphi_3\right) - \\ - \text{arccos}\left(\frac{a_5^2 + l^2 - 2a_5 l \cos(\varphi_3)+a_9^2-l^2}{2 a_9 l}\right) 
+\end{multline}
 
 \section{Прямая кинематика}\label{sec:direct_kinematics}
-Используя найденную в пункте \fixme связь построим решение премой задачи кинематики.
+Используя найденную в пункте \ref{sec:pre_direct_kin} связь построим решение прямой задачи кинематики по координатам точки $ A $. Трехмерная кинематическая схема приведена на рисунке \ref{fig:kin_scheme}. Зафиксируем сначала первую степень свободы ($ \varphi_1 = 0 $) и найдем координаты точки $ A $ в плоскости, параллельной плоскости $ XZ $:
+\begin{multline}
+    X_A=a_2+a_3\cos(\varphi_2)+a_6\sin(\varphi_2)-\\-a_8 \cos(\varphi _2+\varphi _4)+(a_9+a_{10}) \sin(\varphi _2+\varphi _4) 
+\end{multline}
+\begin{multline}
+    Z_A=a_1-a_3 \sin(\varphi _2)+a_6 \cos(\varphi _2)+\\+a_8 \sin(\varphi _2+\varphi _4)+(a_9+a_{10}) \cos(\varphi _2+\varphi _4)
+\end{multline}
+
+\noindent Если мы предположим что $ \varphi_1 = \frac \pi 2 $, тогда конечность будет <<поднята над землей>> в таком положении. Координата $ Z $ точки $ A $ станет равна нулю, координата $ Y $ увеличится. Так как от $ \varphi_1 $ зависят только координаты $Y$ и $Z$, получим следующие уравнения для координат точки $A$:
+\begin{multline}
+    X_A=a_2+a_3\cos(\varphi_2)+a_6\sin(\varphi_2)-\\-a_8 \cos(\varphi _2+\varphi _4)+(a_9+a_{10}) \sin(\varphi _2+\varphi _4) 
+\end{multline}
+\begin{multline}
+    Y_A=a_0+\sin(\varphi_1)[a_1-a_3 \sin(\varphi _2)+a_6 \cos(\varphi _2)+\\+a_8 \sin(\varphi _2+\varphi _4)+(a_9+a_{10}) \cos(\varphi _2+\varphi _4)]
+\end{multline}
+\begin{multline}
+    Z_A=\cos(\varphi_1)[a_1-a_3 \sin(\varphi _2)+a_6 \cos(\varphi _2)+\\+a_8 \sin(\varphi _2+\varphi _4)+(a_9+a_{10}) \cos(\varphi _2+\varphi _4)]
+\end{multline}
+
+\noindent Таким образом прямая задача кинематики решена.
+
+Следует отметить, что из-за того что $ a_9 < a_5 $, диапазон углов $ \varphi_4 $ получился шире, чем у $ \varphi_3 $. Это наглядно можно продемонстрировать на проекции математической модели ноги на плоскость $ XZ $. Здесь синей точкой отмечено положение реальное положение точки $ A $. Красной точкой отмечено положение точки $ A $ в том случае, если бы в четырехзвеннике $ a_5 $ был равен $ a_9 $. В крайних положениях третье звено конечности поворачивается на угол немного больший, чем поворачивается вал сервопривода.
+\begin{figure}[ht]
+    \centering
+    % левая картинка
+    \begin{subfigure}[b]{0.45\textwidth}    
+        \centering
+        \includegraphics[scale=0.4]{chapter_kinematics/figure5.png}
+        \caption{}
+    \end{subfigure}
+    % правая картинка  
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.4]{chapter_kinematics/figure6.png}
+        \caption{}
+    \end{subfigure}
+     
+    \caption{(a) Третье звено полностью <<разогнуто>>; (б) Третье звено полностью <<согнуто>>.}
+    \label{fig:leg_model}
+\end{figure}
+
+Таким образом за счет использования четырехзвенной передачи, увеличена рабочая область конечности. Ниже на графике зеленая область -- рабочая область при $ a_5 = a_9 $, синяя область -- расширение рабочей области при $ a_5 > a_9 $.
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.8]{chapter_kinematics/figure7.png}
+    \caption{Сравнение рабочих областей}
+    \label{}
+\end{figure}
 
 \section{Обратная кинематика}
 
