@@ -15,7 +15,7 @@
     \label{}
 \end{figure}
 
-\textbf{Для справки}: \textit{JSON} это сокращение от \textit{JavaScript Object Notation} -- формата передачи данных. Как можно понять из названия, {JSON} произошел из \textit{JavaScript}, но он доступен для использования на многих других языках, включая \textit{Python, Ruby, PHP} и \textit{Java}, в англоязычным странах его в основном произносят как \textit{Jason}, то есть как имя ДжЭйсон.Легкочитаемый и компактный, \textit{JSON} представляет собой хорошую альтернативу \textit{XML} и требует куда меньше форматирования контента.
+\textbf{Для справки}: \textit{JSON} это сокращение от \textit{JavaScript Object Notation} -- формата передачи данных. Как можно понять из названия, {JSON} произошел из \textit{JavaScript}, но он доступен для использования на многих других языках, включая \textit{Python, Ruby, PHP} и \textit{Java}, в англоязычным странах его в основном произносят как \textit{Jason}, то есть как имя ДжЭйсон. Легкочитаемый и компактный, \textit{JSON} представляет собой хорошую альтернативу \textit{XML} и требует куда меньше форматирования контента.
 
 \noindent Объект \textit{JSON} это набор данных в формате ключ-значение, который находится в фигурных скобках.
 Вот так выглядит \textit{JSON} объект:
@@ -50,17 +50,17 @@
 
 \noindent Функция \textit{push}: отправляет команду под номером \textit{CODE} с аргументами \textit{ARG}
 \begin{code}
-    clapi.device_id.push(CODE[, ARG1, ARG2, ..., ARGN])
+clapi.device_id.push(CODE[, ARG1, ARG2, ..., ARGN])
 \end{code}
 
 \noindent Функция \textit{pull}: блокирует выполнение программы, дожидается входящего сообщения от устройства. Возвращает \textit{JSON}, который нам прислало устройство.
 \begin{code}
-    clapi.device_id.pull()
+clapi.device_id.pull()
 \end{code}
 
 \noindent Функция \textit{request}: отправляет команду как \textit{push}, после чего дожидается ответа как \textit{pull}.
 \begin{code}
-    clapi.device_id.request(CODE[, ARG1, ARG2, ..., ARGN])
+clapi.device_id.request(CODE[, ARG1, ARG2, ..., ARGN])
 \end{code}
 
 Первая версия кода библиотеки для управления была написана в 2019 году, использовалась <<в боевых условиях>> и достойно показала себя на робототехнических соревнованиях \textit{Eurobot}. С тех пор код был доработан, дополнительно протестирован и оптимизирован под новые нужды.
