@@ -8,3 +8,4 @@
 
 Текст дипломной работы пишется в LATEX. Скомпилированный текст работы можно скачать [здесь](https://github.com/tonykolomeytsev/bachelor-level/raw/master/diploma/index.pdf).
 
+![Robot drawings](https://github.com/tonykolomeytsev/bachelor-level/raw/master/diploma/chapter_mechanics_construction/figure23.png)
