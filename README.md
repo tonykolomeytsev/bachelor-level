@@ -1,6 +1,6 @@
 ![Robot drawings](https://github.com/tonykolomeytsev/bachelor-level/raw/master/diploma/chapter_mechanics_construction/figure23.png)
 
-# Бакалаврская работа по разработке шагающего робота
+# Бакалаврская работа по разработке прототипа шагающего робота
 
 ### О чем вообще работа
 
