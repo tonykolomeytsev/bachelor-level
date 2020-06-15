@@ -131,13 +131,13 @@ def four_link_angle(phi3):
 \subsection{Вычисление Якобиана}
 Для численного решения обратной задачи кинематики нужно в каждой итерации вычислять Якобиан. Аналитический вид производной кинематического графа представленной в работе конечности неоправданно больших размеров, что делает невозможным его перенос из математического пакета в код на \textit{Python}. Однако используя функцию вычисляющую прямую задачу кинематики, и устанавливая шаг для приращения каждого угла мы можем дифференцировать численно следующим образом \cite{Morken2010}:
 \begin{align*}
-    \frac{\partial f}{\partial x}(a, b) &\approx \frac{f(a+h_1, b) - f(a, b)}{h_1} \\ 
+    \frac{\partial f}{\partial x}(a, b) &\approx \frac{f(a+h_1, b) - f(a, b)}{h_1}, \\ 
     \frac{\partial f}{\partial y}(a, b) &\approx \frac{f(a, b+h_2) - f(a, b)}{h_2}
 \end{align*}
 
 \noindent Можно оценить погрешность вычисления:
 \begin{align*}
-    \frac{\partial f}{\partial x}(a, b) - \frac{f(a+h_1, b) - f(a, b)}{h_1} &= \frac{h_1}{2} \frac{\partial^2 f}{\partial x^2}(c_1, b) \\ 
+    \frac{\partial f}{\partial x}(a, b) - \frac{f(a+h_1, b) - f(a, b)}{h_1} &= \frac{h_1}{2} \frac{\partial^2 f}{\partial x^2}(c_1, b), \\ 
     \frac{\partial f}{\partial y}(a, b) - \frac{f(a, b+h_2) - f(a, b)}{h_2} &= \frac{h_2}{2} \frac{\partial^2 f}{\partial y^2}(a, c_2)
 \end{align*}
 \noindent Где $ c_1 \subset (a, a+h_1) $, а $ с_2 \subset (b, b+c_2) $. Такой результат нас вполне устраивает, поэтому реализация в коде следующая:
