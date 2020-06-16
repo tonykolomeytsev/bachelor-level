@@ -85,7 +85,7 @@
     X_A=a_2+a_3\cos(\varphi_2)+a_6\sin(\varphi_2)-\\-a_8 \cos(\varphi _2+\varphi _4)+(a_9+a_{10}) \sin(\varphi _2+\varphi _4) ,
 \end{multline}
 \begin{multline} % написать вертикальную черту и phi1=0
-    Z_A\Bigr|_{\varphi_1=0} =a_1-a_3 \sin(\varphi _2)+a_6 \cos(\varphi _2)+\\+a_8 \sin(\varphi _2+\varphi _4)+(a_9+a_{10}) \cos(\varphi _2+\varphi _4)
+    Z_A\Bigr|_{\varphi_1=0} =a_1-a_3 \sin(\varphi _2)+a_6 \cos(\varphi _2)+\\+a_8 \sin(\varphi _2+\varphi _4)+(a_9+a_{10}) \cos(\varphi _2+\varphi _4).
 \end{multline}
 
 \noindent Если мы предположим, что $ \varphi_1 = \frac \pi 2 $, тогда конечность будет <<поднята над землей>> в таком положении. Координата $ Z $ точки $ A $ станет равна нулю, координата $ Y $ увеличится. Так как от $ \varphi_1 $ зависят только координаты $Y$ и $Z$, получим следующие уравнения для координат точки $A$:
@@ -124,10 +124,11 @@
         \includegraphics[scale=0.4]{chapter_kinematics/figure6.png}
         \caption{}
     \end{subfigure}
-     
+
+    \captionsetup{justification=centering}
     \caption{Проекция ноги на плоскость $ XZ $: \\ (a) третье звено полностью <<разогнуто>>; \\ (б) третье звено полностью <<согнуто>>.}
     \label{fig:leg_model}
-\end{figure} % ПОЯСНИТЬ
+\end{figure}
 
 Так, за счет использования четырехзвенной передачи, увеличена рабочая область конечности. На рисунке \ref{fig:fig7} серая область -- рабочая область при $ a_5 = a_9 $, зеленая область -- расширение рабочей области при $ a_5 > a_9 $.
 \begin{figure}[h]
@@ -175,7 +176,7 @@
         \frac{\partial f_1}{\partial x_1} & \dots & \frac{\partial f_1}{\partial x_n} \\
         \vdots & \ddots & \vdots \\
         \frac{\partial f_n}{\partial x_1} & \dots & \frac{\partial f_n}{\partial x_n}
-    \end{bmatrix}
+    \end{bmatrix}.
 \end{align*}
 
 Применительно к задаче, рассматриваемой в данной работе, вектор $ \overline{x} $ является  вектором углов $ \overline{\varphi} = [ \varphi_1, \varphi_2, \varphi_3 ]^T $. Вектор $ F(x) $ -- это правая часть уравнений прямой кинематики.
@@ -253,13 +254,11 @@ def find_nearest_solution(coordinates):
 \begin{python}
 def inversed(coordinates):
     """ 
-    SOLVING THE INVERSE KINEMATICS PROBLEM \n
     Param coordinates is [X, Y, Z] numpy vector, in meters.
     This function uses Newton's numerical method.
     """
     phis = find_nearest_solution(coordinates)
     error = np.ones((3,), dtype=np.float64)
-
     i = 0
     while np.linalg.norm(error, 2) > 1e-5 and i < 100:
         J = jacobian(phis)
