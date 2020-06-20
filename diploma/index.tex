@@ -292,6 +292,7 @@
 
 
 \newcommand{\fixme}{\color{red} \textbf{FIXME} \color{black}}
+\usepackage{pdfpages}
 
 % ====================================================================
 %                           НАЧАЛО КОНТЕНТА
@@ -330,6 +331,10 @@
 %Дипломная работа \pageref{LastPage}~с \totfig~рис. \tottab~таблиц.
 
 \appendix
+
+\newpage
+\addcontentsline{toc}{likechapter}{ПРИЛОЖЕНИЕ А: ПОСТРОЕНИЕ РАБОЧЕЙ ОБЛАСТИ}
+\includepdf[pages={1,2}]{append1.pdf}
 
 % \includeappend{stuff}
 
